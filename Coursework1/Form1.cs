@@ -386,5 +386,26 @@ namespace Coursework1
             }
             UpdateStats();
         }
+
+        private void lstIntValues_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (lstIntValues.Items.Count > 0)
+                lstIntValues.DoDragDrop(lstIntValues.SelectedItem, DragDropEffects.Move);
+        }
+
+        private void picDeleteImage_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void picDeleteImage_DragDrop(object sender, DragEventArgs e)
+        {
+            //code to remove the item from the list
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            picDeleteImage.AllowDrop = true;
+        }
     }
 }

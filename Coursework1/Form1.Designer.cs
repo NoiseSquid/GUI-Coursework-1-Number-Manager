@@ -55,9 +55,11 @@
             this.lblFirstItemTitle = new System.Windows.Forms.Label();
             this.lblNumEntries = new System.Windows.Forms.Label();
             this.lblNumEntriesTitle = new System.Windows.Forms.Label();
+            this.picDeleteImage = new System.Windows.Forms.PictureBox();
             this.grpSortChoice.SuspendLayout();
             this.grpSearchChoice.SuspendLayout();
             this.grpStats.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDeleteImage)).BeginInit();
             this.SuspendLayout();
             // 
             // lstIntValues
@@ -66,8 +68,9 @@
             this.lstIntValues.Location = new System.Drawing.Point(12, 12);
             this.lstIntValues.Name = "lstIntValues";
             this.lstIntValues.ScrollAlwaysVisible = true;
-            this.lstIntValues.Size = new System.Drawing.Size(120, 251);
+            this.lstIntValues.Size = new System.Drawing.Size(120, 277);
             this.lstIntValues.TabIndex = 0;
+            this.lstIntValues.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstIntValues_MouseDown);
             // 
             // grpSortChoice
             // 
@@ -173,14 +176,14 @@
             // 
             // txtNewNumber
             // 
-            this.txtNewNumber.Location = new System.Drawing.Point(139, 159);
+            this.txtNewNumber.Location = new System.Drawing.Point(138, 173);
             this.txtNewNumber.Name = "txtNewNumber";
             this.txtNewNumber.Size = new System.Drawing.Size(90, 20);
             this.txtNewNumber.TabIndex = 7;
             // 
             // btnAddNumber
             // 
-            this.btnAddNumber.Location = new System.Drawing.Point(235, 157);
+            this.btnAddNumber.Location = new System.Drawing.Point(234, 171);
             this.btnAddNumber.Name = "btnAddNumber";
             this.btnAddNumber.Size = new System.Drawing.Size(42, 23);
             this.btnAddNumber.TabIndex = 8;
@@ -201,7 +204,7 @@
             // 
             // txtSearchItem
             // 
-            this.txtSearchItem.Location = new System.Drawing.Point(139, 188);
+            this.txtSearchItem.Location = new System.Drawing.Point(138, 202);
             this.txtSearchItem.Name = "txtSearchItem";
             this.txtSearchItem.Size = new System.Drawing.Size(90, 20);
             this.txtSearchItem.TabIndex = 10;
@@ -209,7 +212,7 @@
             // btnSearch
             // 
             this.btnSearch.Enabled = false;
-            this.btnSearch.Location = new System.Drawing.Point(235, 186);
+            this.btnSearch.Location = new System.Drawing.Point(234, 200);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(42, 23);
             this.btnSearch.TabIndex = 11;
@@ -219,7 +222,7 @@
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(139, 240);
+            this.btnExit.Location = new System.Drawing.Point(138, 130);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(120, 23);
             this.btnExit.TabIndex = 12;
@@ -239,7 +242,7 @@
             this.grpStats.Controls.Add(this.lblFirstItemTitle);
             this.grpStats.Controls.Add(this.lblNumEntries);
             this.grpStats.Controls.Add(this.lblNumEntriesTitle);
-            this.grpStats.Location = new System.Drawing.Point(13, 270);
+            this.grpStats.Location = new System.Drawing.Point(12, 295);
             this.grpStats.Name = "grpStats";
             this.grpStats.Size = new System.Drawing.Size(200, 118);
             this.grpStats.TabIndex = 13;
@@ -340,11 +343,24 @@
             this.lblNumEntriesTitle.TabIndex = 0;
             this.lblNumEntriesTitle.Text = "Size:";
             // 
+            // picDeleteImage
+            // 
+            this.picDeleteImage.Image = global::Coursework1.Properties.Resources.Bin_Icon_Bitmap;
+            this.picDeleteImage.Location = new System.Drawing.Point(162, 232);
+            this.picDeleteImage.Name = "picDeleteImage";
+            this.picDeleteImage.Size = new System.Drawing.Size(50, 50);
+            this.picDeleteImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picDeleteImage.TabIndex = 14;
+            this.picDeleteImage.TabStop = false;
+            this.picDeleteImage.DragDrop += new System.Windows.Forms.DragEventHandler(this.picDeleteImage_DragDrop);
+            this.picDeleteImage.DragEnter += new System.Windows.Forms.DragEventHandler(this.picDeleteImage_DragEnter);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(449, 400);
+            this.ClientSize = new System.Drawing.Size(449, 424);
+            this.Controls.Add(this.picDeleteImage);
             this.Controls.Add(this.grpStats);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnSearch);
@@ -360,12 +376,14 @@
             this.Controls.Add(this.lstIntValues);
             this.Name = "frmMain";
             this.Text = "Integer Number Manager";
+            this.Load += new System.EventHandler(this.frmMain_Load);
             this.grpSortChoice.ResumeLayout(false);
             this.grpSortChoice.PerformLayout();
             this.grpSearchChoice.ResumeLayout(false);
             this.grpSearchChoice.PerformLayout();
             this.grpStats.ResumeLayout(false);
             this.grpStats.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDeleteImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -400,6 +418,7 @@
         private System.Windows.Forms.Label lblMaxValueTitle;
         private System.Windows.Forms.Label lblMaxValue;
         private System.Windows.Forms.Label lblMinValue;
+        private System.Windows.Forms.PictureBox picDeleteImage;
     }
 }
 
