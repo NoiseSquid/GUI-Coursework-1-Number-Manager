@@ -17,6 +17,8 @@ namespace Coursework1
             InitializeComponent();
         }
 
+        // -------------------- HELPER METHODS --------------------
+
         private int NumValues()
         {
             return lstIntValues.Items.Count;
@@ -25,7 +27,7 @@ namespace Coursework1
         private int GetValAtIndex(int index)
         {
             if (index < 0 || index >= NumValues()) return -1;
-            return int.Parse(lstIntValues.Items[index].ToString());
+            else return int.Parse(lstIntValues.Items[index].ToString());
         }
 
         private void RemoveValAtIndex(int index)
@@ -41,62 +43,49 @@ namespace Coursework1
 
         private void SetValAtIndex(int value, int index)
         {
-            if (index < 0 || index >= NumValues()) return;
-
-            lstIntValues.Items[index] = value.ToString();
+            if (!(index < 0 || index >= NumValues()))
+            { 
+                lstIntValues.Items[index] = value.ToString();
+            }
         }
 
         private void InsertValAtIndex(int value, int index)
         {
-            if (NumValues() >= 30) return;
-            if (index < 0 || index >= NumValues()) return;
-
-            //create a dummy item at the back of the list, to extend it's length
-            AppendValToList(100);
-
-            //shift every item to the right by one
-            for (int i = NumValues() - 2; i >= index; i--)
+            //check the index is within range
+            if (!(NumValues() >= 30) && !(index < 0 || index > NumValues()))
             {
-                MessageBox.Show(
-                    "Moving "
-                    + GetValAtIndex(i).ToString()
-                    + " to the right, replacing "
-                    + GetValAtIndex(i + 1).ToString()
-                );
-                SetValAtIndex(GetValAtIndex(i), i + 1);
+                //create a dummy item at the back of the list, to extend it's length
+                AppendValToList(100);
+
+                //shift every item to the right by one
+                for (int i = NumValues() - 2; i >= index; i--)
+                {
+                    SetValAtIndex(GetValAtIndex(i), i + 1);
+                }
+
+                //overwrite the old item at the desired index
+                SetValAtIndex(value, index);
             }
-            
-            //overwrite the old item at the desired index
-            SetValAtIndex(value, index);
         }
 
         private void AppendValToList(int value)
         {
-            if (NumValues() >= 30) return;
-
-            lstIntValues.Items.Add(value); // TODO: not allowed to use .add
+            if (!(NumValues() >= 30))
+            {
+                lstIntValues.Items.Add(value);
+            }
         }
 
         private bool AddToList(int value)
         {
             if (optSorted.Checked == true)
             {
-                // TODO: locate insersion point and insert
-                // BUG: inserting into incorrect indexes (inserting
-                //      1 to far to the left.
-                int left_index = 0;
-                int right_index = NumValues() - 1;
-                int mid_index = (left_index + right_index) / 2;
-
-                while (left_index < right_index)
-                {
-                    if (GetValAtIndex(mid_index) == value) return false;
-                    if (GetValAtIndex(mid_index) < value) left_index = mid_index + 1;
-                    if (GetValAtIndex(mid_index) > value) right_index = mid_index - 1;
-                    mid_index = (left_index + right_index) / 2;
-                }
-
-                InsertValAtIndex(value, mid_index);
+                // WAS A BUG: inserting into incorrect indexes (inserting
+                //      1 to far to the left. Should be fixed now, but
+                //      more in-depth testing should be done to make sure
+                int seek_index = 0;
+                while (GetValAtIndex(seek_index) < value && seek_index < NumValues()) seek_index++;
+                InsertValAtIndex(value, seek_index);
             }
             else
             {
@@ -188,58 +177,88 @@ namespace Coursework1
 
         private int FindUsingLinear(int value)
         {
-            for (int i = 0; i < NumValues(); i++)
+            bool found = false;
+            int return_index = 0;
+
+            while (return_index < NumValues() && found == false)
             {
-                if (GetValAtIndex(i) == value) return i;
+                if (GetValAtIndex(return_index) == value) found = true;
+                return_index++;
             }
-            return -1;
+
+            if (found == true)
+                return return_index;
+            else
+                return -1;
         }
 
         private int FindUsingBinary(int value)
         {
+            bool found = false;
             int left_index = 0;
             int right_index = NumValues() - 1;
             int mid_index = 0;
 
-            while (left_index <= right_index)
+            while (left_index <= right_index && found == false)
             {
-                mid_index = (left_index + right_index) / 2; //automatically floors, as all values are ints
-                if (GetValAtIndex(mid_index) == value) return mid_index;
-                if (GetValAtIndex(mid_index) < value) left_index = mid_index + 1; 
-                if (GetValAtIndex(mid_index) > value) right_index = mid_index - 1;
+                mid_index = (left_index + right_index) / 2;
+                if (GetValAtIndex(mid_index) == value) found = true;
+                else
+                {
+                    if (GetValAtIndex(mid_index) < value) left_index = mid_index + 1;
+                    if (GetValAtIndex(mid_index) > value) right_index = mid_index - 1;
+                }
             }
-            return -1;
+
+            if (found == true)
+                return mid_index;
+            else
+                return -1;
         }
 
         private int MinValue()
         {
-            if (NumValues() == 0) return -1;
-            if (optSorted.Checked) return GetValAtIndex(0);
+            int min_value;
 
-            int minimum = 100;
-            int cur_item = 0;
-            for (int i = 0; i < NumValues() - 1; i++)
+            if (NumValues() == 0) min_value = -1;
+            else if (optSorted.Checked) min_value = GetValAtIndex(0);
+
+            else
             {
-                cur_item = GetValAtIndex(i);
-                if (cur_item < minimum) minimum = cur_item;
+                min_value = 100;
+                int cur_item = 0;
+                for (int i = 0; i < NumValues() - 1; i++)
+                {
+                    cur_item = GetValAtIndex(i);
+                    if (cur_item < min_value) min_value = cur_item;
+                }
             }
-            return minimum;
+
+            return min_value;
         }
 
         private int MaxValue()
         {
-            if (NumValues() == 0) return -1;
-            if (optSorted.Checked) return GetValAtIndex(NumValues() - 1);
+            int max_value;
 
-            int maximum = 0;
-            int cur_item = 0;
-            for (int i = 0; i < NumValues() - 1; i++)
+            if (NumValues() == 0) max_value = -1;
+            else if (optSorted.Checked) max_value = GetValAtIndex(NumValues() - 1);
+
+            else
             {
-                cur_item = GetValAtIndex(i);
-                if (cur_item > maximum) maximum = cur_item;
+                max_value = 0;
+                int cur_item = 0;
+                for (int i = 0; i < NumValues(); i++)
+                {
+                    cur_item = GetValAtIndex(i);
+                    if (cur_item > max_value) max_value = cur_item;
+                }
             }
-            return maximum;
+
+            return max_value;
         }
+
+        // -------------------- EVENT METHODS --------------------
 
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -275,38 +294,32 @@ namespace Coursework1
 
         private void btnAddNumber_Click(object sender, EventArgs e)
         {
+            bool success = int.TryParse(txtNewNumber.Text, out int value);
+
             if (txtNewNumber.Text.Equals(""))
             {
                 MessageBox.Show("ERROR: no number given");
-                return;
             }
-
-            bool success = int.TryParse(txtNewNumber.Text, out int value);
-            if (!success)
+            else if (!success)
             {
                 MessageBox.Show("ERROR: non-number value given");
-                return;
             }
-
-            if (NumValues() >= 30)
+            else if (NumValues() >= 30)
             {
                 MessageBox.Show("ERROR: the list is full!");
-                return;
             }
-
-            if (value < 0 || value > 100)
+            else if (value < 0 || value > 100)
             {
                 MessageBox.Show("ERROR: the integer is out of range");
-                return;
             }
-
-            if (Find(value) != -1)
+            else if (Find(value) != -1)
             {
                 MessageBox.Show("ERROR: this item already exists");
-                return;
             }
-
-            AddToList(value);
+            else
+            {
+                AddToList(value);
+            }
         }
 
         private void optUnsorted_CheckedChanged(object sender, EventArgs e)
@@ -331,24 +344,24 @@ namespace Coursework1
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            bool success = int.TryParse(txtSearchItem.Text, out int value);
+
             if (txtSearchItem.Text.Equals(""))
             {
                 MessageBox.Show("ERROR: no number given");
-                return;
             }
-
-            bool success = int.TryParse(txtSearchItem.Text, out int value);
-            if (!success)
+            else if (!success)
             {
                 MessageBox.Show("ERROR: non-number value given");
-                return;
             }
-
-            int result = Find(value);
-            if (result == -1)
-                MessageBox.Show("Item not found!", "Search Results");
             else
-                MessageBox.Show("Item found at position " + result.ToString(), "Search Results");
+            {
+                int result = Find(value);
+                if (result == -1)
+                    MessageBox.Show("Item not found!", "Search Results");
+                else
+                    MessageBox.Show("Item found at position " + result.ToString(), "Search Results");
+            }
         }
 
         private void btnDeleteNumber_Click(object sender, EventArgs e)
@@ -400,7 +413,19 @@ namespace Coursework1
 
         private void picDeleteImage_DragDrop(object sender, DragEventArgs e)
         {
-            //code to remove the item from the list
+            RemoveValAtIndex(lstIntValues.SelectedIndex);
+            UpdateStats();
+            btnAddNumber.Enabled = true;
+            if (NumValues() > 0)
+            {
+                if (lstIntValues.SelectedIndex == -1)
+                    lstIntValues.SelectedIndex = 0;
+            }
+            else
+            {
+                btnDeleteNumber.Enabled = false;
+                btnSearch.Enabled = false;
+            }
         }
 
         private void frmMain_Load(object sender, EventArgs e)
