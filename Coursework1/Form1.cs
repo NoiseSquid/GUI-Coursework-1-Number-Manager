@@ -183,7 +183,7 @@ namespace Coursework1
             while (return_index < NumValues() && found == false)
             {
                 if (GetValAtIndex(return_index) == value) found = true;
-                return_index++;
+                else return_index++;
             }
 
             if (found == true)

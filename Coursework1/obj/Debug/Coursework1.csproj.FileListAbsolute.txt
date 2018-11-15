@@ -28,3 +28,13 @@ C:\Users\17025958.UNI.001\Documents\GitHub\GUI-Coursework-1-Number-Manager\Cours
 C:\Users\17025958.UNI.001\Documents\GitHub\GUI-Coursework-1-Number-Manager\Coursework1\obj\Debug\Coursework1.csproj.CoreCompileInputs.cache
 C:\Users\17025958.UNI.001\Documents\GitHub\GUI-Coursework-1-Number-Manager\Coursework1\obj\Debug\Coursework1.exe
 C:\Users\17025958.UNI.001\Documents\GitHub\GUI-Coursework-1-Number-Manager\Coursework1\obj\Debug\Coursework1.pdb
+C:\Users\17025958\Documents\GitHub\GUI-Coursework-1-Number-Manager\Coursework1\bin\Debug\Coursework1.exe.config
+C:\Users\17025958\Documents\GitHub\GUI-Coursework-1-Number-Manager\Coursework1\bin\Debug\Coursework1.exe
+C:\Users\17025958\Documents\GitHub\GUI-Coursework-1-Number-Manager\Coursework1\bin\Debug\Coursework1.pdb
+C:\Users\17025958\Documents\GitHub\GUI-Coursework-1-Number-Manager\Coursework1\obj\Debug\Coursework1.csprojAssemblyReference.cache
+C:\Users\17025958\Documents\GitHub\GUI-Coursework-1-Number-Manager\Coursework1\obj\Debug\Coursework1.frmMain.resources
+C:\Users\17025958\Documents\GitHub\GUI-Coursework-1-Number-Manager\Coursework1\obj\Debug\Coursework1.Properties.Resources.resources
+C:\Users\17025958\Documents\GitHub\GUI-Coursework-1-Number-Manager\Coursework1\obj\Debug\Coursework1.csproj.GenerateResource.cache
+C:\Users\17025958\Documents\GitHub\GUI-Coursework-1-Number-Manager\Coursework1\obj\Debug\Coursework1.csproj.CoreCompileInputs.cache
+C:\Users\17025958\Documents\GitHub\GUI-Coursework-1-Number-Manager\Coursework1\obj\Debug\Coursework1.exe
+C:\Users\17025958\Documents\GitHub\GUI-Coursework-1-Number-Manager\Coursework1\obj\Debug\Coursework1.pdb
